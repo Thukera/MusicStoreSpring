@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS -->
+        <link href="/node_modules/bootstrap/compiler/bootstrap.css" rel="stylesheet"  th:href="@{/node_modules/bootstrap/compiler/bootstrap.css}" media="screen" />
+        <link href="/swiper-master/dist/css/swiper.css" rel="stylesheet"  th:href="@{/swiper-master/dist/css/swiper.css}" media="screen" />
+        <link href="/swiper-master/dist/css/swiper.min.css" rel="stylesheet"  th:href="@{/swiper-master/dist/css/swiper.min.css}" media="screen"  />
+        <link href="/style.css" rel="stylesheet"  th:href="@{/style.css}" media="screen" />
+
+        <title>ThukeraMS Home Page</title>
+        <link rel="shortcut icon" href="/icon/MiniIcon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+    </head>
+
+    <body>
+
+        <!--cabeçalho da pagina-->
+        <nav class="navbar navbar-dark bg-gradient-dark p-3" >
+            <!--Logo-->
+            <a class="navbar-brand" id="logo" th:href="@{/musicStore/index}">
+                <img src="/icon/logo.png" alt="icon" th:src="@{/icon/logo.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+            </a>
+            <a class="navbar-brand" id="minilogo" th:href="@{/musicStore/index}">
+                <img src="/icon/MiniIcon.png" alt="miniIcon" th:src="@{/icon/MiniIcon.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+            </a>
+
+            <!--Carrinho e Login-->
+            <form class="Container d-block mt-2 ml-auto mr-sm-2" id="navbarSite">
+
+                <!--Login-->
+                <ul class="form-inline">
+                    <li class="form-inline">
+                        <a class="form-inline" href="#" data-toggle="modal" data-target="#modalLogin">
+                            <img src="/icon/usericon.png" th:src="@{/icon/usericon.png}" class="mr-4" style=" max-width: 100%; height: auto; display: block; width: 100%;">
+                        </a>
+                    </li>
+
+                    <li class="form-inline">
+                        <a href="#" data-toggle="modal" data-target="#modalLogin" class="d-none d-lg-block text-warning badge badge-degrated-dark text-wrap">Acesse seu Login
+                            <br /> ou cadastre-se</p>
+                        </a>
+                    </li>
+
+                    <!--Carrinho-->
+                    <li class="form-inline">
+                        <a class="" th:href="@{/musicStore/carrinho}">
+                            <span class="badge badge-secondary badge-pill">0</span>
+                        </a>
+                    </li>
+
+                    <li class="form-inline">
+                        <a class="my-2 my-sm-0" th:href="@{/musicStore/carrinho}">
+                            <img src="/icon/carrinhoicon.png" th:src="@{/icon/carrinhoicon.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+                        </a>
+                    </li>
+                </ul>
+            </form>
+
+            <!--Barra de procura-->
+
+            <div class="input-group" id="procura">
+                <input type="text" class="form-control" placeholder="Procure por código,marca,nome..." aria-label="Recipient's username"
+                       aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" id="button-addon2" th:href="@{/musicStore/listaProdutos}"> 
+
+                            <img src="/icon/lupa.png" th:src="@{/icon/lupa.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+
+                        </button>
+                    </div>
+            </div>
+
+
+        </nav>
+
+        <!--Menu Lista de Produtos-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark" th:fragment="subHeaderMS">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSite">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a th:href="@{/musicStore/listaProdutos}" class="nav-link text-warning">
+                            Veja Nosso Produtos:
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Audio e Tecnologia
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Controladoras e Mesas de Som</a>
+                            <a class="dropdown-item card-text" a href="#">Fone de Ouvido</a>
+                            <a class="dropdown-item card-text" a href="#">Microfones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Estudio
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Caixa Acústica</a>
+                            <a class="dropdown-item card-text" a href="#">Amplificadores</a>
+                            <a class="dropdown-item card-text" a href="#">Monitores de Audio</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Percursão
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Bateria</a>
+                            <a class="dropdown-item card-text" a href="#">Caixas</a>
+                            <a class="dropdown-item card-text" a href="#">Pratos e Ferragens</a>
+                            <a class="dropdown-item card-text" a href="#">Percursão</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Cordas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Violão</a>
+                            <a class="dropdown-item card-text" a href="#">Guitarra</a>
+                            <a class="dropdown-item card-text" a href="#">Contra-baixo</a>
+                            <a class="dropdown-item card-text" a href="#">Pedais e Pedaleiras</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Acessórios
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Suporte</a>
+                            <a class="dropdown-item card-text" a href="#">Geral</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <!--Sub Menu Social-->
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" data-toggle="dropdown" id="navDrop">
+                            Institucional
+                        </a>
+
+                        <div class="dropdown-menu bg-warning">
+                            <a class="dropdown-item card-text" a href="#">Quem Somos</a>
+                            <a class="dropdown-item card-text" a href="#">Contato</a>
+                            <a class="dropdown-item card-text" a href="#">Forum</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!--Carrousel Top-->
+
+        <div id="carouselSite" class="carousel slide" data-ride="carousel">
+
+            <!--Indicadores-->
+            <ol class="carousel-indicators">
+                <li data-target="#carouselSite active" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselSite" data-slide-to="1"></li>
+                <li data-target="#carouselSite" data-slide-to="2"></li>
+            </ol>
+
+            <!--Items-->
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <img src="img/esp.jpg" th:src="@{/img/esp.jpg}"class="img-fluid d-block" style=" margin:auto;" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h1 class="text-muted">LTD</h1>
+                            <p class="lead text-muted">Les Paul EC-1000</p>
+                        </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/explorerbass.jpg" th:src="@{/img/explorerbass.jpg}"class="img-fluid d-block" style=" margin:auto;" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h1 class="text-muted">Epiphone</h1>
+                            <p class="lead text-muted">Explorer</p>
+                        </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/jacksonrr1.png" th:src="@{/img/jacksonrr1.png}" class="img-fluid d-block" style=" margin:auto;" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h1>Jacksson</h1>
+                            <p class="lead">Randy Rhoads RR1</p>
+                        </div>
+                </div>
+
+            </div>
+
+
+            <a class="carousel-control-prev" href="#carouselSite" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Proximo</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselSite" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+
+        </div>
+
+
+        <!--Barra de merchan-->
+        <nav class="navbar navbar-expand-lg p-2 navbar-dark bg-gradient-dark">
+            <h5 class="text-warning form-inline mt-2" style="margin-left: auto; margin-right: auto; ">Confira nossas promoções</h5>
+        </nav>
+
+
+
+        <!--Lista Swiper de produtos preview-->
+
+        <!-- Lista Swiper Guitarras-->
+        <div class="Container my-2">
+
+            <div class="row">
+
+                <div class="col  mt-3">
+                    <h2 class="ml-5">Cordas</h2>
+                </div>
+
+                <!--botoes -->
+                <div class="col mt-3 mx-4">
+                    <div class="swiper-button-next" href="slide-gtr" id="gtr-next"></div>
+                    <div class="swiper-button-prev" href="slide-gtr" id="gtr-prev"></div>
+                </div>
+            </div>
+
+            <hr>
+
+                <!--Swiper Preview Cordas-->
+                <div class="row">
+
+                    <!-- Swiper -->
+                    <div class="swiper-container slide-preview" id="slide-gtr">
+                        <div class="swiper-wrapper mx-2">
+
+                            <!--slide 1-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo" >
+                                    <a th:href="@{/musicStore/produto}" class="card-body text-dark">
+                                        <img src="img/esp.jpg" th:src="@{/img/esp.jpg}" class="card-img imagem" alt="gtr-promo-01" >
+                                            <h5 class="card-header text-center">Guitarra ESP | LTD</h5>
+                                            <h6 class="card-title text-center mt-2">EC-1000 Deluxe</h6>
+                                            <h4 class="card-footer text-center">R$6.000,00</h4>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!--slide 2-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo" >
+                                    <a th:href="@{/musicStore/produto}" class="card-body text-dark">
+                                        <img src="img/explorerbass.jpg" th:src="@{/img/explorerbass.jpg}"class="card-img imagem" alt="gtr-promo-02">
+                                            <h5 class="card-header text-center">Contra-Baixo Epiphone</h5>
+                                            <h6 class="card-title text-center mt-2">Explorer</h6>
+                                            <h4 class="card-footer text-center">R$3.800,00</h4>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!--slide 3-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo" >
+                                    <a href="produto.html" class="card-body text-dark">
+                                        <img src="img/jacksonrr1.png" th:src="@{/img/jacksonrr1.png}"class="card-img imagem" alt="gtr-promo-03">
+                                            <h5 class="card-header text-center">Guitarra jackson</h5>
+                                            <h6 class="card-title text-center mt-2">Randy Rhoads RR1</h6>
+                                            <h4 class="card-footer text-center">R$4.500,00</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--slide 4-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo" >
+                                    <a href="produto.html" class="card-body text-dark">
+                                        <img src="img/explorer.JPG" th:src="@{/img/explorer.JPG}" class="card-img imagem" alt="gtr-promo-04">
+                                            <h5 class="card-header text-center">Guitarra Gibson</h5>
+                                            <h6 class="card-title text-center mt-2">Explorer</h6>
+                                            <h4 class="card-footer text-center">R$5.800,00</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--slide 5-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo" >
+                                    <a href="produto.html" class="card-body text-dark">
+                                        <img src="img/bxo-05.jpg" th:src="@{/img/bxo-05.jpg}" class="card-img imagem" alt="gtr-promo-05" >
+                                            <h5 class="card-header text-center">Contra-Baixo Tagima</h5>
+                                            <h6 class="card-title text-center mt-2">Millenium 4 top</h6>
+                                            <h4 class="card-footer text-center">R$1.099,00</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--slide 6-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo" >
+                                    <a href="produto.html" class="card-body text-dark">
+                                        <img src="img/vlo-01.jpg" th:src="@{/img/vlo-01.jpg}" class="card-img imagem" alt="gtr-promo-06">
+                                            <h5 class="card-header text-center">Violao Epiphone</h5>
+                                            <h6 class="card-title text-center mt-2">Vintage Folk DR-100</h6>
+                                            <h4 class="card-footer text-center">R$899,00</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--slide 7-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                    <a href="produto.html" class="card-body text-dark">
+                                        <img src="img/vlo-02.jpeg" th:src="@{/img/vlo-02.jpeg}" class="card-img imagem" alt="gtr-promo-07">
+                                            <h5 class="card-header text-center">Violão Yamaha</h5>
+                                            <h6 class="card-title text-center mt-2">TransAcoustuve LL-TA</h6>
+                                            <h4 class="card-footer text-center">R$2.500,00</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--slide 8-->
+                            <div class="swiper-slide">
+                                <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo" >
+                                    <a href="produto.html" class="card-body text-dark">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <img src="img/gtr-08.jpg" th:src="@{/img/gtr-08.jpg}" class="card-img imagem" alt="gtr-promo-08">
+                                                <h5 class="card-header text-center">Guitarra Fender</h5>
+                                                <h6 class="card-title text-center mt-2">Classic Jaguar HH300</h6>
+                                                <h4 class="card-footer text-center">R$8.999,00</h4>
+                                        </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+
+        <!--Linha escura-->
+        <hr class="bg-gradient-dark mx-3" style="height: 5px; border-radius: 30%">
+
+            <!-- Lista Swiper Audio e Tecnologia-->
+            <div class="Container my-2">
+
+                <div class="row">
+
+                    <div class="col  mt-3">
+                        <h2 class="ml-5">Audio e Tecnologia</h2>
+                    </div>
+
+                    <!--botoes -->
+                    <div class="col mt-3 mx-4">
+                        <div class="swiper-button-next" href="slide-audio" id="aud-next"></div>
+                        <div class="swiper-button-prev" href="slide-audio" id="aud-prev"></div>
+                    </div>
+                </div>
+
+                <hr>
+
+                    <!--Swiper Preview Audio e Tecnologia-->
+                    <div class="row">
+
+                        <!-- Swiper -->
+                        <div class="swiper-container slide-preview" id="slide-audio">
+                            <div class="swiper-wrapper mx-2">
+
+                                <!--slide 1-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" th:href="@{/musicStore/produto}" class="card-body text-dark">
+                                            <img src="img/aud-01.jpg" th:src="@{/img/aud-01.jpg}" class="card-img imagem" alt="aud-promo-01">
+                                                <h5 class="card-header text-center">Microfone AKG</h5>
+                                                <h6 class="card-title text-center mt-2">Condensador p120</h6>
+                                                <h4 class="card-footer text-center">R$675,00</h4>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!--slide 2-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <img src="img/aud-02.jpg" th:src="@{/img/aud-02.jpg}"class="card-img imagem" alt="aud-promo-02">
+                                                <h5 class="card-header text-center">Mesa de Som Behinger</h5>
+                                                <h6 class="card-title text-center mt-2">USB Digital x32</h6>
+                                                <h4 class="card-footer text-center">R$18.890,00</h4>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!--slide 3-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <img src="img/aud-03.jpg" th:src="@{/img/aud-03.jpg}" class="card-img imagem" alt="aud-promo-03">
+                                                <h5 class="card-header text-center">Microfone Shure</h5>
+                                                <h6 class="card-title text-center mt-2">Super 55 Shure</h6>
+                                                <h4 class="card-footer text-center">R$2.890,00</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--slide 4-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <img src="img/aud-04.jpg" th:src="@{/img/aud-04.jpg}"class="card-img imagem" alt="aud-promo-04">
+                                                <h5 class="card-header text-center">Microfone Shure</h5>
+                                                <h6 class="card-title text-center mt-2">Dinamico Cardioide Sv 200</h6>
+                                                <h4 class="card-footer text-center">R$299,00</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--slide 5-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <img src="img/aud-05.jpg" th:src="@{/img/aud-05.jpg}" class="card-img imagem" alt="gtr-promo-05" >
+                                                <h5 class="card-header text-center">Controladora Akai</h5>
+                                                <h6 class="card-title text-center mt-2">MPX16</h6>
+                                                <h4 class="card-footer text-center">R$1.699,00</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--slide 6-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <img src="img/aud-06.jpg" th:src="@{/img/aud-06.jpg}" class="card-img imagem" alt="gtr-promo-06">
+                                                <h5 class="card-header text-center">Akai Sampler</h5>
+                                                <h6 class="card-title text-center mt-2">mpd 32</h6>
+                                                <h4 class="card-footer text-center">R$1.599,00</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--slide 7-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <img src="img/aud-07.jpg" th:src="@{/img/aud-07.jpg}" class="card-img imagem" alt="aud-promo-07">
+                                                <h5 class="card-header text-center">Mesa de Som Stanner</h5>
+                                                <h6 class="card-title text-center mt-2">MX0804</h6>
+                                                <h4 class="card-footer text-center">R$1.419,00</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--slide 8-->
+                                <div class="swiper-slide">
+                                    <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                        <a href="produto.html" class="card-body text-dark">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/aud-08.jpg" th:src="@{/img/aud-08.jpg}"class="card-img imagem" alt="aud-promo-08">
+                                                    <h5 class="card-header text-center">Fone de Ouvido AKG</h5>
+                                                    <h6 class="card-title text-center mt-2">Professional k121</h6>
+                                                    <h4 class="card-footer text-center">R$376,20</h4>
+                                            </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+
+            <!--Linha escura-->
+            <hr class="bg-gradient-dark mx-3" style="height: 5px; border-radius: 30%">
+
+
+                <!-- Lista Swiper Estudio-->
+                <div class="Container my-2">
+
+                    <div class="row">
+
+                        <div class="col  mt-3">
+                            <h2 class="ml-5">Estudio</h2>
+                        </div>
+
+                        <!--botoes -->
+                        <div class="col mt-3 mx-4">
+                            <div class="swiper-button-next" href="slide-estudio" id="est-next"></div>
+                            <div class="swiper-button-prev" href="slide-estudio" id="est-prev"></div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                        <!--Swiper Preview Estudio-->
+                        <div class="row">
+
+                            <!-- Swiper -->
+                            <div class="swiper-container slide-preview" id="slide-estudio">
+                                <div class="swiper-wrapper mx-2">
+
+                                    <!--slide 1-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/est-01.jpg" th:src="@{/img/est-01.jpg}" class="card-img imagem" alt="est-promo-01">
+                                                    <h5 class="card-header text-center">Monitor de Audio Edifier</h5>
+                                                    <h6 class="card-title text-center mt-2">R1000T4</h6>
+                                                    <h4 class="card-footer text-center">R$408,00</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!--slide 2-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/est-02.jpg" th:src="@{/img/est-02.jpg}" class="card-img imagem" alt="est-promo-02">
+                                                    <h5 class="card-header text-center">Amplificador Marshall</h5>
+                                                    <h6 class="card-title text-center mt-2">DSL 40cr</h6>
+                                                    <h4 class="card-footer text-center">R$3.790,00</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!--slide 3-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/est-03.jpg" th:src="@{/img/est-03.jpg}" class="card-img imagem" alt="est-promo-03">
+                                                    <h5 class="card-header text-center">Monitor de Audio Yamaha</h5>
+                                                    <h6 class="card-title text-center mt-2">HS-50</h6>
+                                                    <h4 class="card-footer text-center">R$1.159,00</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!--slide 4-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/est-04.JPG" th:src="@{/img/est-04.jpg}"class="card-img imagem" alt="est-promo-04">
+                                                    <h5 class="card-header text-center">Amplificador Orange</h5>
+                                                    <h6 class="card-title text-center mt-2">20w 1x8 Full</h6>
+                                                    <h4 class="card-footer text-center">R$999,99</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!--slide 5-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/est-05.jpg" th:src="@{/img/est-05.jpg}" class="card-img imagem" alt="est-promo-05">
+                                                    <h5 class="card-header text-center">Monitor de Audio Edifier</h5>
+                                                    <h6 class="card-title text-center mt-2">R1280T</h6>
+                                                    <h4 class="card-footer text-center">R$900,00</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!--slide 6-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/est-06.jpg" th:src="@{/img/est-06.jpg}" class="card-img imagem" alt="est-promo-06">
+                                                    <h5 class="card-header text-center">Caixa Acustica Ativa CSR</h5>
+                                                    <h6 class="card-title text-center mt-2">CSR2500A</h6>
+                                                    <h4 class="card-footer text-center">R$1.025,00</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!--slide 7-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <img src="img/est-07.webp" th:src="@{/img/est-07.webp}" class="card-img imagem" alt="est-promo-07">
+                                                    <h5 class="card-header text-center">Cabeçote Fender</h5>
+                                                    <h6 class="card-title text-center mt-2">Bassman 1965 200w</h6>
+                                                    <h4 class="card-footer text-center">R$2.500</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!--slide 8-->
+                                    <div class="swiper-slide">
+                                        <div class="card card-deck mb-3 bg-light mx-2 my-2 cardpromo">
+                                            <a href="produto.html" class="card-body text-dark">
+                                                <a href="produto.html" class="card-body text-dark">
+                                                    <img src="img/est-08.jpg" th:src="@{/img/est-08.jpg}" class="card-img imagem" alt="est-promo-08">
+                                                        <h5 class="card-header text-center">Caixa Acustica Antera</h5>
+                                                        <h6 class="card-title text-center mt-2">CP15 1a Ativa</h6>
+                                                        <h4 class="card-footer text-center">R$1.943,70</h4>
+                                                </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                </div>
+
+
+
+
+                <!--Seção Rodapé-->
+                <footer>
+                    <nav class="navbar navbar-expand-lg p-5 navbar-dark bg-gradient-dark">
+                        <p style="text-align: center; color: azure">Copyright © 2019 Senac.sp, São Paulo, Brazil, inc. all rights reserved. </p>
+                    </nav>
+
+                </footer>
+
+                <!--Modal Login-->
+                <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5>Faça seu Login</h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <label class="card-text mt-2">Login</label>
+                                <input type="text" class="form-control" id="emailLoginInput" placeholder="E-mail" />
+
+                                <label class="card-text mt-2">Senha</label>
+                                <input type="password" class="form-control" id="senhaLoginInput" placeholder="Senha" />
+
+                            </div>
+                            <div class="modal-footer">
+                                <a th:href="@{/musicStore/cadastroUsuario}" style="margin-right: auto;">
+                                    Não tem cadastro? Registre-se agora</a>
+                                <button class="btn btn-success">Login</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optional JavaScript -->
+                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+                <script src="/node_modules/jquery/dist/jquery.js" th:href="@{/node_modules/jquery/dist/jquery.js}" ></script>
+                <script src="/node_modules/popper.js/dist/umd/popper.js" th:href="@{/node_modules/popper.js/dist/umd/popper.js}" ></script>
+                <script src="/node_modules/bootstrap/dist/js/bootstrap.js" th:href="@{/node_modules/bootstrap/dist/js/bootstrap.js}" ></script>
+                <script src="/swiper-master/dist/js/swiper.js" th:href="@{/swiper-master/dist/js/swiper.js}" ></script>
+                <script src="/swiper-master/dist/js/swiper.min.js" th:href="@{/swiper-master/dist/js/swiper.min.js}" ></script>
+                <script src="/https://code.jquery.com/jquery-3.4.0.min.js" th:href="@{https://code.jquery.com/jquery-3.4.0.min.js}" ></script>
+                <script src="/script.js" th:href="@{/script.js}" ></script>
+
+                </body>
+
+
+
+                </html>

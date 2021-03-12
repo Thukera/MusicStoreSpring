@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS -->
+        <link href="/node_modules/bootstrap/compiler/bootstrap.css" rel="stylesheet"  th:href="@{/node_modules/bootstrap/compiler/bootstrap.css}" />
+        <link href="/swiper-master/dist/css/swiper.css" rel="stylesheet"  th:href="@{/swiper-master/dist/css/swiper.css}"/>
+        <link href="/swiper-master/dist/css/swiper.min.css" rel="stylesheet"  th:href="@{/swiper-master/dist/css/swiper.min.css}"  />
+        <link href="/style.css" rel="stylesheet"  th:href="@{/style.css}"/>
+
+        <title>Lista de Produtos</title>
+        <link rel="shortcut icon" href="/icon/MiniIcon.png" />
+        <link rel="stylesheet" href="../static/node_modules/bootstrap/compiler/bootstrap.css" type="text/css"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+    </head>
+
+    <body>
+
+         <!--cabeçalho da pagina-->
+        <nav class="navbar navbar-dark bg-gradient-dark p-3" >
+            <!--Logo-->
+            <a class="navbar-brand" id="logo" th:href="@{/musicStore/index}">
+                <img src="/icon/logo.png" alt="icon" th:src="@{/icon/logo.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+            </a>
+            <a class="navbar-brand" id="minilogo" th:href="@{/musicStore/index}">
+                <img src="/icon/MiniIcon.png" alt="miniIcon" th:src="@{/icon/MiniIcon.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+            </a>
+
+            <!--Carrinho e Login-->
+            <form class="Container d-block mt-2 ml-auto mr-sm-2" id="navbarSite">
+
+                <!--Login-->
+                <ul class="form-inline">
+                    <li class="form-inline">
+                        <a class="form-inline" href="#" data-toggle="modal" data-target="#modalLogin">
+                            <img src="/icon/usericon.png" th:src="@{/icon/usericon.png}" class="mr-4" style=" max-width: 100%; height: auto; display: block; width: 100%;">
+                        </a>
+                    </li>
+
+                    <li class="form-inline">
+                        <a href="#" data-toggle="modal" data-target="#modalLogin" class="d-none d-lg-block text-warning badge badge-degrated-dark text-wrap">Acesse seu Login
+                            <br /> ou cadastre-se</p>
+                        </a>
+                    </li>
+
+                    <!--Carrinho-->
+                    <li class="form-inline">
+                        <a class="" th:href="@{/musicStore/carrinho}">
+                            <span class="badge badge-secondary badge-pill">0</span>
+                        </a>
+                    </li>
+
+                    <li class="form-inline">
+                        <a class="my-2 my-sm-0" th:href="@{/musicStore/carrinho}">
+                            <img src="/icon/carrinhoicon.png" th:src="@{/icon/carrinhoicon.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+                        </a>
+                    </li>
+                </ul>
+            </form>
+
+            <!--Barra de procura-->
+
+            <div class="input-group" id="procura">
+                <input type="text" class="form-control" placeholder="Procure por código,marca,nome..." aria-label="Recipient's username"
+                       aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" id="button-addon2" th:href="@{/musicStore/listaProdutos}"> 
+
+                            <img src="/icon/lupa.png" th:src="@{/icon/lupa.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+
+                        </button>
+                    </div>
+            </div>
+
+
+        </nav>
+
+        <!--Menu Lista de Produtos-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark" th:fragment="subHeaderMS">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSite">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a th:href="@{/musicStore/listaProdutos}" class="nav-link text-warning">
+                            Veja Nosso Produtos:
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Audio e Tecnologia
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Controladoras e Mesas de Som</a>
+                            <a class="dropdown-item card-text" a href="#">Fone de Ouvido</a>
+                            <a class="dropdown-item card-text" a href="#">Microfones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Estudio
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Caixa Acústica</a>
+                            <a class="dropdown-item card-text" a href="#">Amplificadores</a>
+                            <a class="dropdown-item card-text" a href="#">Monitores de Audio</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Percursão
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Bateria</a>
+                            <a class="dropdown-item card-text" a href="#">Caixas</a>
+                            <a class="dropdown-item card-text" a href="#">Pratos e Ferragens</a>
+                            <a class="dropdown-item card-text" a href="#">Percursão</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Cordas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Violão</a>
+                            <a class="dropdown-item card-text" a href="#">Guitarra</a>
+                            <a class="dropdown-item card-text" a href="#">Contra-baixo</a>
+                            <a class="dropdown-item card-text" a href="#">Pedais e Pedaleiras</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Acessórios
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Suporte</a>
+                            <a class="dropdown-item card-text" a href="#">Geral</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <!--Sub Menu Social-->
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" data-toggle="dropdown" id="navDrop">
+                            Institucional
+                        </a>
+
+                        <div class="dropdown-menu bg-warning">
+                            <a class="dropdown-item card-text" a href="#">Quem Somos</a>
+                            <a class="dropdown-item card-text" a href="#">Contato</a>
+                            <a class="dropdown-item card-text" a href="#">Forum</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!--Detalhes do Produto -->
+
+
+
+        <!--Titulos-->
+
+
+        <!--TITULO-->
+        <div class="container">
+            <div class="row my-2">
+
+                <!-- Descrição e Valor -->
+                <div class="col col-sm my-2 order-sm-2">
+
+                    <div class="card card border-dark mb-3 my-3" style="max-width: 40rem;">
+                        <div class="card-body text-dark">
+                            <h3 class="card-title">Guitarra ESP | LTD</h3>
+                            <h4 class="card-subtitle mb-2 text-muted">EC-1000 Deluxe</h4>
+
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Codigo:</th>
+                                        <th scope="col">GTR-01</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Valor:</th>
+                                        <th scope="col">R$6.000,00</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <button type="button" class="btn btn-success">Compre Agora </button>
+                                        </th>
+                                        <td>
+                                            <button type="button" class="btn btn-warning">Adicione ao Carrinho </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+                <!--Imagem-->
+
+                <div class="col col-sm my-2 order-sm-1" style="width: 50%; max-height: 400px; display: block">
+
+                    <div class="swiper-container galeria gallery-top">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/esp.jpg}" alt="slide1">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-1.jpg}" alt="slide2">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-3.jpg}" alt="slide3">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-4.jpg}" alt="slide4">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-5.jpg}" alt="slide5">
+                            </div>
+                        </div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-white"></div>
+                        <div class="swiper-button-prev swiper-button-white"></div>
+                    </div>
+                    <div class="swiper-container galeria gallery-thumbs">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/esp.jpg}" alt="1">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-1.jpg}" alt="2">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-3.jpg}" alt="3">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-4.jpg}" alt="4">
+                            </div>
+                            <div class="swiper-slide">
+                                <img class="img-galeria imagem" th:src="@{/img/gtr-01-5.jpg}" alt="5">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+
+            <!--Painel Vertical-->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm ">
+                        <nav id="navBarVertical" class="navbar navbar-light bg-gradient-light ">
+                            <nav class="nav-pills flex-column ">
+                                <a class="nav-link " href="#item1">Informações</a>
+                                <nav class="nav nav-pills flex-column">
+                                    <a class="nav-link  ml-3 " href="#item1-1">Descrição</a>
+                                    <a class="nav-link ml-3 " href="#item1-2">Especificações</a>
+                                    <a class="nav-link ml-3 " href="#item1-3">Sobre a Marca</a>
+                                </nav>
+                                <a class="nav-link mt-2 " href="#item2">Opinião dos Consumidores</a>
+                                <nav class="nav nav-pills flex-column">
+                                    <a class="nav-link ml-3 " href="#item2-1">Avaliação</a>
+                                    <a class="nav-link ml-3 " href="#item2-2">Comentários</a>
+                                </nav>
+                            </nav>
+                        </nav>
+                    </div>
+
+                    <!--Conteudo Informações-->
+                    <div class="col-sm my-2 ">
+                        <div data-spy="scroll" data-target="#navBarVertical" data-offset="0" class="scroolspyProduto">
+                            <h4 id="item1">Informações</h4>
+                            <h5>ESP LTD EC-1000 Deluxe</h5>
+                            <br>
+
+                                <h5 id="item1-1">Descrição</h5>
+                                <p>Modelo EC-1000, corpo e braço em Mogno, escala em Ébano com 24 trastes, captação ativa EMG e tarraxas
+                                    ESP Locking.
+                                    <br />Construída com corpo e braço em Mogno (colado), escala 24,75″ em Ébano para as cores SSB e VB, e
+                                    Rosewood para as MGO e BLK com 24 trastes extra jumbo. A ponte TonePros locking tailpiece a mantém
+                                    sempre afinada.
+                                    <br />As guitarras ESP LTD Deluxe EC-1000 estão equipadas com um par de captadores ativos EMG 60/81 exceto
+                                    o modelo com a cor MGO que possui captadores Seymour Duncan Alnico II Pro (Braço e Ponte).
+                                </p>
+
+                                <h5 id="item1-2">Especificações</h5>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Modelo</th>
+                                            <th scope="col">EC-1000 Deluxe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Fabricante</th>
+                                            <td>ESP | LTD</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Estilo</th>
+                                            <td>Les Paul</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Corpo | Braço</th>
+                                            <td>Mogno | Mogno</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Captadores</th>
+                                            <td>EMG Ativos | Saymour Duncan</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h5 id="item1-3">Sobre a Marca</h5>
+                                <p>A empresa foi criada por Hisatake Shibuya em 1975 como uma filial de uma loja de instrumentos musicais
+                                    do Japão. Em 1983, a ESP começou a fabricar peças de reposição. Em 1983, começou a fabricar seus
+                                    próprios instrumentos. Em 1986, a ESP abriu um escritório em Nova Iorque para fabricar guitarras
+                                    sob encomenda para músicos norte-americanos. Em 1996, a ESP inaugurou uma nova marca, a LTD, que
+                                    produz guitarras similares às ESP à preços mais acessíveis.[1] As LTD são feitas em linhas de montagem
+                                    na Indonésia, Vietnam e Estados Unidos caso se trate de um modelo Custom shop. Geralmente, são relativamente
+                                    mais acessíveis do que as ESP, que são fabricadas no Japão. A ESP ainda oferece o serviço de fabricação
+                                    de instrumentos por encomenda até os dias de hoje. A ESP ganhou fama ao fabricar guitarras para os
+                                    guitarristas que iriam se tornar os expoentes do thrash metal na década de 1980, notadamente a banda
+                                    Metallica e pelo guitarrista Gus G(Ozzy Osbourne/Firewind). Como resultado dessas parcerias, a ESP
+                                    tornou-se um dos maiores fornecedores de guitarras para guitarristas de som pesado.</p>
+
+
+                                <h4 id="item2">Opinião dos Consumidores</h4>
+
+                                <h5 id="item2-1">Avaliação</h5>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nota</th>
+                                            <th scope="col" class="alert alert-warning">Item não foi avaliado</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                <h5 id="item2-2">Comentários</h5>
+                                <p class="alert alert-warning">não há comentarios</p>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Deixe aqui seu comentário</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <a href="#" class="btn btn-secondary btn-lg active mt-2" role="button" aria-pressed="true">Enviar</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!--Seção Rodapé-->
+            <footer>
+                <nav class="navbar navbar-expand-lg p-5 navbar-dark bg-gradient-dark">
+                    <p style="text-align: center; color: azure">Copyright © 2019 Senac.sp, São Paulo, Brazil, inc. all rights reserved. </p>
+                </nav>
+
+            </footer>
+
+
+            <!--Modal Login-->
+            <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5>Faça seu Login</h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <label class="card-text mt-2">Login</label>
+                            <input type="text" class="form-control" id="emailLoginInput" placeholder="E-mail" />
+
+                            <label class="card-text mt-2">Senha</label>
+                            <input type="password" class="form-control" id="senhaLoginInput" placeholder="Senha" />
+
+                        </div>
+                        <div class="modal-footer">
+                            <a th:href="@{/musicStore/cadastroUsuario}" style="margin-right: auto;">
+                                Não tem cadastro? Registre-se agora</a>
+                            <button class="btn btn-success">Login</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+            <script src="/node_modules/jquery/dist/jquery.js" th:href="@{/node_modules/jquery/dist/jquery.js}" ></script>
+            <script src="/node_modules/popper.js/dist/umd/popper.js" th:href="@{/node_modules/popper.js/dist/umd/popper.js}" ></script>
+            <script src="/node_modules/bootstrap/dist/js/bootstrap.js" th:href="@{/node_modules/bootstrap/dist/js/bootstrap.js}" ></script>
+            <script src="/swiper-master/dist/js/swiper.js" th:href="@{/swiper-master/dist/js/swiper.js}" ></script>
+            <script src="/swiper-master/dist/js/swiper.min.js" th:href="@{/swiper-master/dist/js/swiper.min.js}" ></script>
+            <script src="/https://code.jquery.com/jquery-3.4.0.min.js" th:href="@{https://code.jquery.com/jquery-3.4.0.min.js}" ></script>
+            <script src="/script.js" th:href="@{/script.js}" ></script>
+    </body>
+
+</html>

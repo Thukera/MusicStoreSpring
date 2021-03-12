@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS -->
+        <link href="/node_modules/bootstrap/compiler/bootstrap.css" rel="stylesheet"  th:href="@{/node_modules/bootstrap/compiler/bootstrap.css}" />
+        <link href="/swiper-master/dist/css/swiper.css" rel="stylesheet"  th:href="@{/swiper-master/dist/css/swiper.css}"/>
+        <link href="/swiper-master/dist/css/swiper.min.css" rel="stylesheet"  th:href="@{/swiper-master/dist/css/swiper.min.css}"  />
+        <link href="/style.css" rel="stylesheet"  th:href="@{/style.css}"/>
+
+        <title>Lista de Produtos</title>
+        <link rel="shortcut icon" href="/icon/MiniIcon.png" />
+        <link rel="stylesheet" href="../static/node_modules/bootstrap/compiler/bootstrap.css" type="text/css"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+    </head>
+
+    <body onload="calculo()" onchange="calculo()">
+
+        <!--cabeçalho da pagina-->
+        <nav class="navbar navbar-dark bg-gradient-dark p-3" >
+            <!--Logo-->
+            <a class="navbar-brand" id="logo" th:href="@{/musicStore/index}">
+                <img src="/icon/logo.png" alt="icon" th:src="@{/icon/logo.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+            </a>
+            <a class="navbar-brand" id="minilogo" th:href="@{/musicStore/index}">
+                <img src="/icon/MiniIcon.png" alt="miniIcon" th:src="@{/icon/MiniIcon.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+            </a>
+
+            <!--Carrinho e Login-->
+            <form class="Container d-block mt-2 ml-auto mr-sm-2" id="navbarSite">
+
+                <!--Login-->
+                <ul class="form-inline">
+                    <li class="form-inline">
+                        <a class="form-inline" href="#" data-toggle="modal" data-target="#modalLogin">
+                            <img src="/icon/usericon.png" th:src="@{/icon/usericon.png}" class="mr-4" style=" max-width: 100%; height: auto; display: block; width: 100%;">
+                        </a>
+                    </li>
+
+                    <li class="form-inline">
+                        <a href="#" data-toggle="modal" data-target="#modalLogin" class="d-none d-lg-block text-warning badge badge-degrated-dark text-wrap">Acesse seu Login
+                            <br /> ou cadastre-se</p>
+                        </a>
+                    </li>
+
+                    <!--Carrinho-->
+                    <li class="form-inline">
+                        <a class="" th:href="@{/musicStore/carrinho}">
+                            <span class="badge badge-secondary badge-pill">0</span>
+                        </a>
+                    </li>
+
+                    <li class="form-inline">
+                        <a class="my-2 my-sm-0" th:href="@{/musicStore/carrinho}">
+                            <img src="/icon/carrinhoicon.png" th:src="@{/icon/carrinhoicon.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+                        </a>
+                    </li>
+                </ul>
+            </form>
+
+            <!--Barra de procura-->
+
+            <div class="input-group" id="procura">
+                <input type="text" class="form-control" placeholder="Procure por código,marca,nome..." aria-label="Recipient's username"
+                       aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" id="button-addon2" th:href="@{/musicStore/listaProdutos}"> 
+
+                            <img src="/icon/lupa.png" th:src="@{/icon/lupa.png}" style="max-width: 100%; height: auto; display: block; width: 100%;">
+
+                        </button>
+                    </div>
+            </div>
+
+
+        </nav>
+
+        <!--Menu Lista de Produtos-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark" th:fragment="subHeaderMS">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSite">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a th:href="@{/musicStore/listaProdutos}" class="nav-link text-warning">
+                            Veja Nosso Produtos:
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Audio e Tecnologia
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Controladoras e Mesas de Som</a>
+                            <a class="dropdown-item card-text" a href="#">Fone de Ouvido</a>
+                            <a class="dropdown-item card-text" a href="#">Microfones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Estudio
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Caixa Acústica</a>
+                            <a class="dropdown-item card-text" a href="#">Amplificadores</a>
+                            <a class="dropdown-item card-text" a href="#">Monitores de Audio</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Percursão
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Bateria</a>
+                            <a class="dropdown-item card-text" a href="#">Caixas</a>
+                            <a class="dropdown-item card-text" a href="#">Pratos e Ferragens</a>
+                            <a class="dropdown-item card-text" a href="#">Percursão</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Cordas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Violão</a>
+                            <a class="dropdown-item card-text" a href="#">Guitarra</a>
+                            <a class="dropdown-item card-text" a href="#">Contra-baixo</a>
+                            <a class="dropdown-item card-text" a href="#">Pedais e Pedaleiras</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
+                            Acessórios
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item card-text" a href="#">Suporte</a>
+                            <a class="dropdown-item card-text" a href="#">Geral</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <!--Sub Menu Social-->
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown" href="#" data-toggle="dropdown" id="navDrop">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" data-toggle="dropdown" id="navDrop">
+                            Institucional
+                        </a>
+
+                        <div class="dropdown-menu bg-warning">
+                            <a class="dropdown-item card-text" a href="#">Quem Somos</a>
+                            <a class="dropdown-item card-text" a href="#">Contato</a>
+                            <a class="dropdown-item card-text" a href="#">Forum</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!--Carrinho-->
+
+        <div class="container">
+
+            <!--Compras-->
+            <div class="row">
+
+
+                <h2 class="mt-3" style="margin-left: auto; margin-right: auto; ">Lista de Compras</h2>
+
+
+                <!-- Arrays das compras-->
+
+                <table id="tableProduto" class="table table-striped table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th> </th>
+                            <th>Codigo</th>
+                            <th>Modelo</th>
+                            <th>Preço venda</th>
+                            <th>Quantidade</th>
+                            <th>Total</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td th:text="${produto[0].id}"></td>
+                            <td th:text="${produto[0].modelo}"></td>
+                            <td th:text="${produto[0].estilo}"></td>
+                            <td id='valorProduto0' th:text="'R$ ' + ${produto[0].precoVenda}" th:value="${produto[0].precoVenda}"></td>
+                            <td > <select id="quantidadeProduto0" class="form-control calculaCarrinho" >
+                                    <option selected value=1 >1</option>
+                                    <option value=2 >2</option>
+                                    <option value=3 >3</option>
+                                </select></td>
+                            <td><span id="valorTotalProduto0"></span></td>
+                            <td> <button class="btn btn-danger">X</button></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${produto[1].id}"></td>
+                            <td th:text="${produto[1].modelo}"></td>
+                            <td th:text="${produto[1].estilo}"></td>
+                            <td id='valorProduto1' th:text="'R$ ' + ${produto[1].precoVenda}"></td>
+                            <td > <select id="quantidadeProduto1" class="form-control calculaCarrinho" >
+                                    <option selected value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                </select></td>
+                            <td><span id='valorTotalProduto1'></span></td>
+                            <td> <button class="btn btn-danger">X</button></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${produto[2].id}"></td>
+                            <td th:text="${produto[2].modelo}"></td>
+                            <td th:text="${produto[2].estilo}"></td>
+                            <td id='valorProduto2' th:text="'R$ ' + ${produto[2].precoVenda}"></td>
+                            <td > <select id="quantidadeProduto2" class="form-control calculaCarrinho" >
+                                    <option selected value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                </select></td>
+                            <td><span id='valorTotalProduto2'></span></td>
+                            <td> <button class="btn btn-danger">X</button></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${produto[3].id}"></td>
+                            <td th:text="${produto[3].modelo}"></td>
+                            <td th:text="${produto[3].estilo}"></td>
+                            <td id='valorProduto3' th:text="'R$ ' + ${produto[3].precoVenda}"></td>
+                            <td > <select id="quantidadeProduto3" class="form-control calculaCarrinho" >
+                                    <option selected value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                </select></td>
+                            <td><span  id='valorTotalProduto3'></span></td>
+                            <td> <button class="btn btn-danger">X</button></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${produto[4].id}"></td>
+                            <td th:text="${produto[4].modelo}"></td>
+                            <td th:text="${produto[4].estilo}"></td>
+                            <td id='valorProduto4' th:text="'R$ ' + ${produto[4].precoVenda}"></td>
+                            <td > <select id="quantidadeProduto4" class="form-control calculaCarrinho" >
+                                    <option selected value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                </select></td>
+                            <td><span id='valorTotalProduto4'></span></td>
+                            <td> <button class="btn btn-danger">X</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+                <hr>
+
+            </div>
+        </div>
+
+
+        <!--Formulario-->
+
+
+        <form action='#' class="row" th:action="@{/musicStore/confirma}" method="post" th:object="${venda}">
+
+            <!--Dados Usuario-->
+            <div class="col col-sm my-3">
+
+                <ul class="list-group mx-2">
+                    <li class="list-group-item list-group-item-secondary">
+                        <h5 class="text-center">Dados do comprador e endereço de entrega</h5>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary" ><span id='usuario' data-th-text="${usuario[0].nome}"></span></li>
+                    <li class="list-group-item list-group-item-secondary" data-th-text="${usuario[0].email}"></li>
+                    <li class="list-group-item list-group-item-secondary" data-th-text="${usuario[0].rua} + ', ' + ${usuario[0].numero}"></li>
+                    <li class="list-group-item list-group-item-secondary" data-th-text="${usuario[0].bairro} + ', ' + ${usuario[0].cidade} + ' - ' + ${usuario[0].estado} + ' | ' + ${usuario[0].CEP}"></li>
+                </ul>
+                <input type="hidden" id='inputUser' data-th-field="*{usuario}">
+
+            </div>
+
+
+
+            <!--Dados Compra-->
+            <div class="col col-sm ">
+
+                <h5 class="text-center">Comprar Agora</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Total de item no carrinho</th>
+                            <th scope="col" class="">
+                                <span data-th-field="*{totalItem}">5</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">Valor dos Produtos</th>
+                            <th scope="col" class="">
+                                <span id="valorTotal"></span>
+                                <input id='inputValorTotal' type='hidden' data-th-field="*{valorTotal}">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Frete</th>
+                            <th scope="col" class="">
+                                <span type="text" id="frete">R$ 30,00</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Valor total da Compra</th>
+                            <th scope="col" class="">
+                                <span id="valorCompra" ></span>
+                                <input id='inputValorCompra' type='hidden' data-th-field="*{valorCompra}">
+
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <button type="submit" class="btn btn-success" >Finalizar Compra</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+
+
+
+
+
+        <!--Seção Rodapé-->
+        <footer>
+            <nav class="navbar navbar-expand-lg p-5 navbar-dark bg-gradient-dark">
+                <p style="text-align: center; color: azure">Copyright © 2019 Senac.sp, São Paulo, Brazil, inc. all rights reserved. </p>
+            </nav>
+        </footer>
+
+
+        <!--Modal Login-->
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5>Faça seu Login</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <label class="card-text mt-2">Login</label>
+                        <input type="text" class="form-control" id="emailLoginInput" placeholder="E-mail" />
+
+                        <label class="card-text mt-2">Senha</label>
+                        <input type="password" class="form-control" id="senhaLoginInput" placeholder="Senha" />
+
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/musicStore/cadastroUsuario}" style="margin-right: auto;">
+                            Não tem cadastro? Registre-se agora</a>
+                        <button class="btn btn-success">Login</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+
+
+
+
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+        <script src="/node_modules/jquery/dist/jquery.js" th:href="@{/node_modules/jquery/dist/jquery.js}" ></script>
+        <script src="/node_modules/popper.js/dist/umd/popper.js" th:href="@{/node_modules/popper.js/dist/umd/popper.js}" ></script>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.js" th:href="@{/node_modules/bootstrap/dist/js/bootstrap.js}" ></script>
+        <script src="/swiper-master/dist/js/swiper.js" th:href="@{/swiper-master/dist/js/swiper.js}" ></script>
+        <script src="/swiper-master/dist/js/swiper.min.js" th:href="@{/swiper-master/dist/js/swiper.min.js}" ></script>
+        <script src="/https://code.jquery.com/jquery-3.4.0.min.js" th:href="@{https://code.jquery.com/jquery-3.4.0.min.js}" ></script>
+        <script src="/script.js" th:href="@{/script.js}" ></script>
+        <script th:inline="javascript">
+
+        function venda() {
+
+            alert("Compra Efetuada com sucesso");
+
+        }
+        function calculo() {
+
+
+            // produto 1 calculo 
+            var valorProduto0 = /*[[${produto[0].precoVenda}]]*/ 'produto[0].precoVenda';
+            var quantidadeProduto0 = document.getElementById("quantidadeProduto0").value;
+            var totalProduto0 = valorProduto0 * quantidadeProduto0;
+            document.getElementById('valorTotalProduto0').innerHTML = 'R$ ' + totalProduto0.toFixed(2);
+
+            // produto 1 calculo 
+            var valorProduto1 = /*[[${produto[1].precoVenda}]]*/ 'produto[1].precoVenda';
+            var quantidadeProduto1 = document.getElementById("quantidadeProduto1").value;
+            var totalProduto1 = valorProduto1 * quantidadeProduto1;
+            document.getElementById('valorTotalProduto1').innerHTML = 'R$ ' + totalProduto1.toFixed(2);
+
+            // produto 1 calculo 
+            var valorProduto2 = /*[[${produto[2].precoVenda}]]*/ 'produto[2].precoVenda';
+            var quantidadeProduto2 = document.getElementById("quantidadeProduto2").value;
+            var totalProduto2 = valorProduto2 * quantidadeProduto2;
+            document.getElementById('valorTotalProduto2').innerHTML = 'R$ ' + totalProduto2.toFixed(2);
+
+            // produto 4 calculo 
+            var valorProduto3 = /*[[${produto[3].precoVenda}]]*/ 'produto[3].precoVenda';
+            var quantidadeProduto3 = document.getElementById("quantidadeProduto3").value;
+            var totalProduto3 = valorProduto3 * quantidadeProduto3;
+            document.getElementById('valorTotalProduto3').innerHTML = 'R$ ' + totalProduto3.toFixed(2);
+
+            // produto 5 calculo 
+            var valorProduto4 = /*[[${produto[4].precoVenda}]]*/ 'produto[4].precoVenda';
+            var quantidadeProduto4 = document.getElementById("quantidadeProduto4").value;
+            var totalProduto4 = valorProduto4 * quantidadeProduto4;
+            document.getElementById('valorTotalProduto4').innerHTML = 'R$ ' + totalProduto4.toFixed(2);
+
+            var totalProdutos = totalProduto0 + totalProduto1 + totalProduto2 + totalProduto3 + totalProduto4;
+            document.getElementById('valorTotal').innerHTML = 'R$ ' + totalProdutos.toFixed(2);
+            document.getElementById('inputValorTotal').value = totalProdutos;
+
+            var totalVenda = totalProdutos + 30;
+            document.getElementById('valorCompra').innerHTML = 'R$ ' + totalVenda.toFixed(2);
+            document.getElementById('inputValorCompra').value = totalVenda;
+
+            var usuario = /*[[${usuario[0].nome}]]*/ 'usuario[0].nome';
+            document.getElementById('inputUser').value = usuario;
+
+        }
+
+
+        </script>
+
+    </body>
+
+</html>

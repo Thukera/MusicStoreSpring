@@ -1,0 +1,212 @@
+
+/* CSS para cabeçalho */ 
+@media only screen and (max-width: 391px) {
+  .centraliza {
+    max-width: 100%;
+    margin-left: 35%;
+    
+  }
+  
+  #logo{
+      display: none;
+    }
+
+    #filtroBusca{
+      width: 100%;
+    }
+
+   
+  }
+  
+  @media only screen and (min-width: 392px) and (max-width: 767px) {
+    
+    .centraliza {
+      max-width: 100%;
+      margin-left: 35%;
+      
+    }
+
+    #minilogo{
+      display: none;
+    }
+
+ 
+
+    /* ID# Procurar para medida mobile nao necessaria, 
+    Alinhamento realizado pelo proprio bootstrap e clases
+    
+    #procura 
+    
+    */
+  }
+  
+  @media only screen and (min-width: 768px){
+      .calculaCarrinho{
+          width: 50%;
+      }
+      
+  }
+  
+
+  /*para alinhamento da aba de procura, css puro */
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    .scroolspyMediaQuery{
+      grid-template-rows: auto;
+      }
+
+      .centraliza {
+        max-width: 100%;
+        top: 50%;
+        position: absolute;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+      }
+
+    #minilogo{
+      display: none;
+    }
+
+
+    #procura {
+      max-width: 350px;
+      top: 50%;
+      position: absolute;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+    }
+
+    
+  }
+
+  @media only screen and (min-width: 992px) {
+
+    .scroolspyMediaQuery{
+      grid-template-rows: auto;
+      }
+
+      .centraliza {
+        max-width: 100%;
+        top: 50%;
+        position: absolute;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+      }
+
+    #minilogo{
+      display: none;
+    }
+
+
+    #procura {
+      max-width: 500px;
+      top: 50%;
+      position: absolute;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+    }
+
+    
+  }
+
+
+
+
+  /* sem media query */ 
+  .scroolspyProduto{
+    position: relative;
+    overflow: auto;
+    height: 355px;
+  }
+
+  .titulo {
+    margin-left: 50%;
+    
+    
+  }
+
+  .imagem {
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    width: 100%;
+  }
+
+  .cardpromo { 
+    max-width: 18rem; 
+    display: block;
+  }
+  
+
+  
+
+    /* Swiper CSS Slide */ 
+
+  .swiper-container .slide-preview{
+    width: 100%;
+    height: 100%;
+  }
+
+   .swiper-slide .slide-preview{
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  
+  /* Swiper galery */ 
+
+
+    .img-galeria{
+      max-width: 100%; 
+      height: auto; 
+      display: block; 
+      width: 100%;
+    }
+  
+    .swiper-container .galeria {
+      width: 100%;
+      height: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .swiper-slide .galeria {
+      background-size: cover;
+      background-position: center;
+    }
+    .gallery-top {
+      height: 80%;
+      width: 100%;
+    }
+    .gallery-thumbs {
+      height: 20%;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
+    .gallery-thumbs .swiper-slide {
+      width: 25%;
+      height: 100%;
+      opacity: 0.4;
+    }
+    .gallery-thumbs .swiper-slide-thumb-active {
+      opacity: 1;
+    }
+  
