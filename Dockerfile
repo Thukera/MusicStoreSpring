@@ -1,5 +1,5 @@
 # Multi-stage build for Music Store Spring Boot Application
-FROM maven:3.6.3-openjdk-8-slim AS build
+FROM eclipse-temurin:17-jdk-jammy AS build
 
 # Set working directory
 WORKDIR /build
@@ -8,10 +8,10 @@ WORKDIR /build
 COPY musicStore/ .
 
 # Build the application
-RUN mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Runtime stage
-FROM openjdk:8-jre-alpine
+FROM eclipse-temurin:17-jre-jammy
 
 # Set working directory
 WORKDIR /app
@@ -30,7 +30,7 @@ ENV JAVA_OPTS="-Xmx512m -Xms256m"
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost:7090/actuator/health || exit 1
+  CMD curl -f http://localhost:7090/actuator/health || exit 1
 
 # Run the application
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
