@@ -1,0 +1,73 @@
+name: 🚀 Deploy Backend to Orange Pi
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # ← Changed from ubuntu-latest
+    
+    steps:
+      - name: 📦 Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: 🚀 Deploy Backend
+        run: |
+          set -e
+          
+          echo "================================================"
+          echo "🚀 Starting Backend Deployment"
+          echo "================================================"
+ 
+          
+          # Build JAR
+          echo "🏗️  Building JAR..."
+          chmod +x mvnw
+          ./mvnw clean package -DskipTests
+          
+          # Build Docker image
+          echo "=== FILES AFTER BUILD ==="
+          ls -la
+          ls -la target
+          echo "🐳 Building Docker image..."
+          docker build -t music-store:latest .
+          
+          # Stop old container
+          echo "🛑 Stopping old container..."
+          docker stop music-store || true
+          docker rm music-store || true
+          
+          # Run new container
+          echo "▶️  Starting new container..."
+          docker run -d \
+            -p 7090:7090 \
+            --name music-store \
+            --restart unless-stopped \
+            -v ~/Projects/music_store/uploads:/app/uploads \
+            -v ~/Projects/music_store/logs:/app/logs \
+            music-store:latest
+          
+          # Wait and verify
+          sleep 5
+          
+          if docker ps | grep -q music-store; then
+            echo "✅ Container is running!"
+          else
+            echo "❌ Container failed!"
+            docker logs music-store
+            exit 1
+          fi
+          
+          # Cleanup
+          docker image prune -f
+          
+          echo "================================================"
+          echo "✅ Backend Deployment Complete!"
+          echo "🌐 API: https://musicstore.hardman.app.br"
+          echo "================================================"
