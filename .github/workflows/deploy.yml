@@ -22,19 +22,23 @@ jobs:
           set -e
           
           echo "================================================"
-          echo "🚀 Starting Backend Deployment"
+          echo "🚀 Starting Deployment"
           echo "================================================"
- 
+          
+          # Show project structure
+          echo "📂 Project structure:"
+          ls -la
           
           # Build JAR
           echo "🏗️  Building JAR..."
+          cd musicStore
           chmod +x mvnw
           ./mvnw clean package -DskipTests
+          cd ..
           
           # Build Docker image
           echo "=== FILES AFTER BUILD ==="
-          ls -la
-          ls -la target
+          ls -la musicStore/target
           echo "🐳 Building Docker image..."
           docker build -t music-store:latest .
           
@@ -58,6 +62,7 @@ jobs:
           
           if docker ps | grep -q music-store; then
             echo "✅ Container is running!"
+            docker logs music-store --tail 50
           else
             echo "❌ Container failed!"
             docker logs music-store

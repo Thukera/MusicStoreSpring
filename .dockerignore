@@ -1,0 +1,34 @@
+# Git files
+.git/
+.github/
+.gitignore
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+musicStore/target/
+*.class
+
+# Documentation
+*.md
+*.rtf
+*.pptx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
